@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">clients</string>
+
+    <string name="options">Options</string>
+    <string name="delete">Delete</string>
+    <string name="call">Call</string>
+
+    <string name="message_error_loading_data">Error loading data</string>
+    <string name="message_error_deleting_client">Error deleting client</string>
+    <string name="message_created_client_success">Created client success</string>
+    <string name="message_updated_client_success">Updated client success</string>
+    <string name="message_select_an_option">Select an option</string>
+    <string name="message_select_image">Select image</string>
+    <string name="message_not_found_client">Customer not found</string>
+    <string name="message_not_network">Check your internet connection</string>
+    <string name="message_server_not_responding">The server is not responding</string>
+    <string name="message_error">An error has occurred</string>
+    <string name="message_no_compatible_app_found">No compatible app found</string>
+
+    <string name="required">Required</string>
+    <string name="name">Name</string>
+    <string name="lastname">Lastname</string>
+    <string name="company">Company</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="address1">Address1</string>
+    <string name="address2">Address2</string>
+    <string name="save">Save</string>
+    <string name="client_not_found">Client not found</string>
+    <string name="error_loading_client">Error loading client</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+
+</resources>

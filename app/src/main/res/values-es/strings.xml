@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">clientes</string>
+
+    <string name="options">Opciones</string>
+    <string name="delete">Eliminar</string>
+    <string name="call">Llamar</string>
+
+    <string name="message_error_loading_data">Error cargando los datos</string>
+    <string name="message_error_deleting_client">Error al eliminar el cliente</string>
+    <string name="message_created_client_success">Cliente creado exitosamente</string>
+    <string name="message_updated_client_success">Cliente actualizado exitosamente</string>
+    <string name="message_select_an_option">Selecciona una opcion</string>
+    <string name="message_select_image">Selecciona una imagen</string>
+    <string name="message_not_found_client">No se encontró el cliente</string>
+    <string name="message_not_network">Revisa tu conexión a internet</string>
+    <string name="message_server_not_responding">El servidor no responde</string>
+    <string name="message_error">Ha ocurrido un error</string>
+    <string name="message_no_compatible_app_found">No se encontró ninguna aplicación compatible.</string>
+
+    <string name="required">Requerido</string>
+    <string name="name">Nombre</string>
+    <string name="lastname">Apellidos</string>
+    <string name="company">Compañía</string>
+    <string name="email">Correo electronico</string>
+    <string name="phone">Telefono</string>
+    <string name="address1">Dirreccion 1</string>
+    <string name="address2">Direccion 2</string>
+    <string name="save">Guardar</string>
+    <string name="client_not_found">Cliente no encontrado</string>
+    <string name="error_loading_client">Error al cargar el cliente</string>
+    <string name="camera">Cámara</string>
+    <string name="gallery">Galeria</string>
+
+</resources>
