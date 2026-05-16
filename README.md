@@ -41,22 +41,19 @@ Install Android Studio
 ## Screenshots
 
 ### 1) Pantalla de listar clientes con boton para agregar cliente
-![Screen 1](https://github.com/user-attachments/assets/a8ead0cb-d1de-4254-bc7f-983de6ba2730)
+![Screen 1](<https://github.com/user-attachments/assets/17d1eed3-b8cc-47c2-a933-b4b89e6eecf7)
 
 ### 2) Pantalla de agregar cliente
-![Screen 2](https://github.com/user-attachments/assets/c30d33dd-729b-4a1e-9440-66b7a8969c38)
+![Screen 2](https://github.com/user-attachments/assets/37aa3822-e8f1-47c0-81dd-2bae4c9b27a0)
 
-### 3) Foto del cliente (camara - galleria)
-![Screen 3](https://github.com/user-attachments/assets/b7b0d11d-d784-4ad3-b976-445a21629bec)
+### 3) Pantalla de actualizar cliente (camara - galleria)
+![Screen 3](https://github.com/user-attachments/assets/a317d95d-6365-40e6-b475-47030643c472)
 
-### 4) Pantalla de actualizar cliente
-![Screen 4](https://github.com/user-attachments/assets/5b8fb596-74c9-42d5-a200-e26ceaaa82b8)
+### 4) Click prolongado permite eliminar y llamar al cliente
+![Screen 4](https://github.com/user-attachments/assets/5cb5138c-dcc9-44e6-b654-1c46586575e6)
 
-### 5) Click prolongado permite eliminar y llamar al cliente
-![Screen 5](https://github.com/user-attachments/assets/da22fe07-ee1f-498d-b1c0-d0c6d6a38ce4)
-
-### 6) Clientes
-![Screen 6](https://github.com/user-attachments/assets/1e2e8695-5d7a-4339-ac81-0fe603f7dc68)
+### 5) Clientes
+![Screen 5](https://github.com/user-attachments/assets/50e9f51c-3854-4fcd-9834-b43f7d1fcac6)
 
 
 
