@@ -1,14 +1,23 @@
 package com.example.clients.ui.create.screen
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -24,14 +33,16 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.clients.R
+import com.example.clients.domain.model.Client
 import com.example.clients.ui.common.CustomOptionsDialog
 import com.example.clients.ui.common.DialogOption
-import com.example.clients.ui.create.components.CreateClientContent
+import com.example.clients.ui.create.components.ClientForm
 import com.example.clients.ui.create.states.CreateClientEvent
 import com.example.clients.ui.create.states.CreateClientUiState
 import com.example.clients.ui.create.viewmodel.CreateClientViewModel
 import java.io.File
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateClientScreen(
     navController: NavController,
@@ -43,56 +54,40 @@ fun CreateClientScreen(
 
     val context = LocalContext.current
 
-    var showImageDialog by remember { mutableStateOf(false)}
+    var showImageDialog by remember { mutableStateOf(false) }
+
+    var currentCameraUri by remember { mutableStateOf<Uri?>(null) }
 
 
-    // Uri temporal para la camara
-    val camaraImageUri = remember {
-        val file = File.createTempFile(
-            "client_image",
-            ".jpg",
-            context.cacheDir
-        )
-        FileProvider.getUriForFile(
-            context,
-            "${context.packageName}.provider",
-            file
-        )
-    }
 
     // Lanzar camara
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture()
     ) { success ->
-
-        if (success) {
-            viewModel.updatePhoto(
-                camaraImageUri.toString()
-            )
+        if (success && currentCameraUri != null) {
+            viewModel.updatePhoto(currentCameraUri.toString())
         }
-
     }
 
-    // Lanzar la galeria
+    // Lanzar galeria
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
     ) { uri: Uri? ->
+        uri?.let {
+            try {
+                context.contentResolver.takePersistableUriPermission(
+                    it,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                viewModel.updatePhoto(it.toString())
+            }catch (e: SecurityException) {
 
-        if (uri != null) {
+            }
 
-            context.contentResolver.takePersistableUriPermission(
-                uri,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
-
-            viewModel.updatePhoto(
-                uri.toString()
-            )
         }
     }
 
-
-    // Load client
+    // Cargar datos si es edición
     LaunchedEffect(id) {
 
         if (id != -1) {
@@ -100,7 +95,7 @@ fun CreateClientScreen(
         }
     }
 
-    // Events
+    // Control de eventos únicos
     LaunchedEffect(Unit) {
 
         viewModel.events.collect { event ->
@@ -141,10 +136,85 @@ fun CreateClientScreen(
         }
     }
 
+    Scaffold(
+        topBar = {
+
+            val title = when (val state = uiState) {
+                is CreateClientUiState.Form -> {
+                    if (state.data.isEditMode)
+                        stringResource(R.string.update_client)
+                    else
+                        stringResource(R.string.create_client)
+                }
+                else -> ""
+            }
+
+            TopAppBar(
+                title = {
+                    Text(title)
+                },
+
+                navigationIcon = {
+
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                    }
+                }
+            )
+        }
+
+    ) { padding ->
+        Content(
+            padding = padding,
+            uiState = uiState,
+            showImageDialog = showImageDialog,
+            onShowImageDialogChange = { showImageDialog = it },
+            onLaunchCamera = {
+                val uri = generateTempImageUri(context)
+                currentCameraUri = uri
+                cameraLauncher.launch(uri)
+            },
+            onLaunchGallery = {
+                galleryLauncher.launch(arrayOf("image/*"))
+            },
+            onFieldChange = { updateBlock -> viewModel.updateClientField (updateBlock )},
+            onAddressChange = {index, value -> viewModel.updateAddress(index, value)},
+            onSave = {viewModel.saveClient()}
+        )
+    }
+}
+
+// Uri temporal para la camara
+private fun generateTempImageUri(context: Context): Uri {
+    val file = File.createTempFile("client_image", ".jpg", context.cacheDir
+    )
+   return FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
+}
+
+@Composable
+private fun Content(
+    padding: PaddingValues,
+    uiState: CreateClientUiState,
+    showImageDialog: Boolean,
+    onShowImageDialogChange: (Boolean) -> Unit,
+    onLaunchCamera: () -> Unit,
+    onLaunchGallery: () -> Unit,
+    onFieldChange: (Client.() -> Client) -> Unit,
+    onAddressChange: (Int, String) -> Unit,
+    onSave: () -> Unit
+
+) {
+    // Memorizar las lambdas evita recomposiciones innecesarias en cascada sobre ClientForm
+    val onNameChangeStable = remember(onFieldChange) { { text: String -> onFieldChange { copy(name = text) } } }
+    val onLastNameChangeStable = remember(onFieldChange) { { text: String -> onFieldChange { copy(lastname = text) } } }
+    val onCompanyChangeStable = remember(onFieldChange) { { text: String -> onFieldChange { copy(company = text) } } }
+    val onEmailChangeStable = remember(onFieldChange) { { text: String -> onFieldChange { copy(email = text) } } }
+    val onPhoneChangeStable = remember(onFieldChange) { { text: String -> onFieldChange { copy(phone = text) } } }
+    val onAddress1ChangeStable = remember(onAddressChange) { { text: String -> onAddressChange(0, text) } }
+    val onAddress2ChangeStable = remember(onAddressChange) { { text: String -> onAddressChange(1, text) } }
+
     when (val state = uiState) {
-
         is CreateClientUiState.Loading -> {
-
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
@@ -155,112 +225,52 @@ fun CreateClientScreen(
         }
 
         is CreateClientUiState.Form -> {
-
-            val form = state.data
-
-            CreateClientContent(
-
-                form = form,
-
+            ClientForm(
+                padding = padding,
+                form = state.data,
                 errors = state.errors,
-
-                onSelectImage = {
-                    showImageDialog = true
-                },
-
-                onNameChange = {
-
-                    viewModel.updateClientField {
-                        copy(name = it)
-                    }
-                },
-
-                onLastNameChange = {
-
-                    viewModel.updateClientField {
-                        copy(lastname = it)
-                    }
-                },
-
-                onCompanyChange = {
-
-                    viewModel.updateClientField {
-                        copy(company = it)
-                    }
-                },
-
-                onEmailChange = {
-
-                    viewModel.updateClientField {
-                        copy(email = it)
-                    }
-                },
-
-                onPhoneChange = {
-
-                    viewModel.updateClientField {
-                        copy(phone = it)
-                    }
-                },
-
-                onAddress1Change = {
-
-                    viewModel.updateAddress(
-                        index = 0,
-                        value = it
-                    )
-                },
-
-                onAddress2Change = {
-
-                    viewModel.updateAddress(
-                        index = 1,
-                        value = it
-                    )
-                },
-
-                onSave = {
-
-                    viewModel.saveClient()
-                }
+                onSelectImage = { onShowImageDialogChange(true) },
+                onNameChange = onNameChangeStable,
+                onLastNameChange = onLastNameChangeStable,
+                onCompanyChange = onCompanyChangeStable,
+                onEmailChange = onEmailChangeStable,
+                onPhoneChange = onPhoneChangeStable,
+                onAddress1Change = onAddress1ChangeStable,
+                onAddress2Change = onAddress2ChangeStable,
+                onSave = onSave
             )
         }
 
         is CreateClientUiState.Error -> {
-
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
-            ) {
-
-                Text(stringResource(state.message))
+            ) { Text(text = stringResource(state.message))
             }
         }
     }
 
-    if (showImageDialog){
+    if (showImageDialog) {
         CustomOptionsDialog(
             title = stringResource(R.string.message_select_an_option),
             options = listOf(
                 DialogOption(
                     text = stringResource(R.string.camera),
                     onClick = {
-                        showImageDialog = false
-                        cameraLauncher.launch(camaraImageUri)
+                        onShowImageDialogChange(false)
+                        onLaunchCamera()
                     }
-
                 ),
-
                 DialogOption(
                     text = stringResource(R.string.gallery),
                     onClick = {
-                        showImageDialog = false
-                        galleryLauncher.launch(arrayOf("image/*"))
+                        onShowImageDialogChange(false)
+                        onLaunchGallery()
                     }
                 )
             ),
             onDismiss = {
-                showImageDialog = false
+                onShowImageDialogChange(false)
             }
         )
     }

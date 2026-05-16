@@ -30,5 +30,7 @@
     <string name="error_loading_client">Error al cargar el cliente</string>
     <string name="camera">Cámara</string>
     <string name="gallery">Galeria</string>
+    <string name="update_client">Actualizar cliente</string>
+    <string name="create_client">Crear cliente</string>
 
 </resources>

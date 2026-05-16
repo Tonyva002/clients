@@ -24,13 +24,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.PaddingValues
 import coil.compose.rememberAsyncImagePainter
 import com.example.clients.R
 import com.example.clients.ui.create.states.CreateClientFormState
 import com.example.clients.ui.create.states.ValidationErrors
 
 @Composable
-fun CreateClientContent(
+fun ClientForm(
+    padding: PaddingValues,
     form: CreateClientFormState,
     errors: ValidationErrors,
 
@@ -53,7 +55,8 @@ fun CreateClientContent(
             .statusBarsPadding()
             .fillMaxSize()
             .imePadding()
-            .padding(16.dp),
+            .padding(padding)
+            .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

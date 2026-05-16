@@ -13,8 +13,7 @@ kotlin = "2.2.10"
 composeBom = "2026.02.01"
 ksp = "2.3.2"
 hilt = "2.59.2"
-mockk = "1.14.9"
-mockkVersion = "1.13.11"
+mockkVersion = "1.14.9"
 room = "2.8.4"
 navigationCompose = "2.9.8"
 
@@ -46,13 +45,13 @@ androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-view
 
 
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTestVersion" }
-mockk-v11311 = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room"}
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room"}
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-testing = { module = "androidx.room:room-testing", version.ref = "room"}
 
-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
