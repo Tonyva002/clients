@@ -41,7 +41,7 @@ Install Android Studio
 ## Screenshots
 
 ### 1) Pantalla de listar clientes con boton para agregar cliente
-![Screen 1](<https://github.com/user-attachments/assets/17d1eed3-b8cc-47c2-a933-b4b89e6eecf7)
+![Screen 1](https://github.com/user-attachments/assets/17d1eed3-b8cc-47c2-a933-b4b89e6eecf7)
 
 ### 2) Pantalla de agregar cliente
 ![Screen 2](https://github.com/user-attachments/assets/37aa3822-e8f1-47c0-81dd-2bae4c9b27a0)
