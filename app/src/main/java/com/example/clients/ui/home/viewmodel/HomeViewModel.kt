@@ -6,7 +6,7 @@ import com.example.clients.domain.model.Client
 import com.example.clients.domain.model.DomainError
 import com.example.clients.domain.usecase.client.DeleteClientUseCase
 import com.example.clients.domain.usecase.client.GetClientsUseCase
-import com.example.clients.ui.common.toUiMessageRes
+import com.example.clients.ui.core.toUiMessageRes
 import com.example.clients.ui.home.states.HomeEvent
 import com.example.clients.ui.home.states.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

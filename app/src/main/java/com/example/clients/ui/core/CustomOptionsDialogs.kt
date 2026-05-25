@@ -1,4 +1,4 @@
-package com.example.clients.ui.common
+package com.example.clients.ui.core
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

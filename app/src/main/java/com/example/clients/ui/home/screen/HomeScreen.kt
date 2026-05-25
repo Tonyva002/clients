@@ -28,8 +28,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.clients.R
 import com.example.clients.domain.model.Client
-import com.example.clients.ui.common.CustomOptionsDialog
-import com.example.clients.ui.common.DialogOption
+import com.example.clients.ui.core.CustomOptionsDialog
+import com.example.clients.ui.core.DialogOption
 import com.example.clients.ui.home.components.ClientList
 import com.example.clients.ui.home.components.dial
 import com.example.clients.ui.home.states.HomeEvent

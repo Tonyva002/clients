@@ -65,7 +65,7 @@ fun ClientForm(
                 painter = rememberAsyncImagePainter(
                     form.client.photoUri.ifBlank { R.drawable.photo_01 }
                 ),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.client_image),
 
                 modifier = Modifier
                     .size(120.dp)

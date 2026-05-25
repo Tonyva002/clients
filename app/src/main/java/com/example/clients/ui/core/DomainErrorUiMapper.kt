@@ -1,4 +1,4 @@
-package com.example.clients.ui.common
+package com.example.clients.ui.core
 
 import com.example.clients.R
 import com.example.clients.domain.model.DomainError

@@ -56,7 +56,7 @@ fun ClientItem(
             Spacer(modifier = Modifier.width(16.dp))
 
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(client.name)
+                Text("${client.name}${client.lastname}")
                 Text(client.phone)
             }
         }
