@@ -3,17 +3,16 @@ package com.example.clients.ui.home.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
-
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
-import com.example.clients.domain.model.Client
+import com.example.clients.domain.model.ClientWithAddresses
 
 @Composable
 fun ClientList(
-    clients: List<Client>,
-    onClick: (Client) -> Unit,
-    onLongClick: (Client) -> Unit
+    clients: List<ClientWithAddresses>,
+    onClick: (ClientWithAddresses) -> Unit,
+    onLongClick: (ClientWithAddresses) -> Unit
 ) {
 
     LazyColumn(
@@ -21,15 +20,15 @@ fun ClientList(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
 
-        items(clients) { client ->
+        items(clients) { clientWithAddresses ->
 
             ClientItem(
-                client = client,
+                clientWithAddresses = clientWithAddresses,
                 onClick = {
-                    onClick(client)
+                    onClick(clientWithAddresses)
                 },
                 onLongClick = {
-                    onLongClick(client)
+                    onLongClick(clientWithAddresses)
                 }
             )
         }

@@ -37,6 +37,7 @@ import com.example.clients.domain.model.Client
 import com.example.clients.ui.core.CustomOptionsDialog
 import com.example.clients.ui.core.DialogOption
 import com.example.clients.ui.create.components.ClientForm
+import com.example.clients.ui.create.components.NewCompanyDialog
 import com.example.clients.ui.create.states.CreateClientEvent
 import com.example.clients.ui.create.states.CreateClientUiState
 import com.example.clients.ui.create.viewmodel.CreateClientViewModel
@@ -55,6 +56,8 @@ fun CreateClientScreen(
     val context = LocalContext.current
 
     var showImageDialog by remember { mutableStateOf(false) }
+
+    var showNewCompanyDialog by remember { mutableStateOf(false) }
 
     var currentCameraUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -177,9 +180,19 @@ fun CreateClientScreen(
             onLaunchGallery = {
                 galleryLauncher.launch(arrayOf("image/*"))
             },
-            onFieldChange = { updateBlock -> viewModel.updateClientField (updateBlock )},
-            onAddressChange = {index, value -> viewModel.updateAddress(index, value)},
-            onSave = {viewModel.saveClient()}
+            onFieldChange = { updateBlock -> viewModel.updateClientField(updateBlock) },
+            onAddressChange = { index, value -> viewModel.updateAddress(index, value) },
+            onAddAddress = { viewModel.addAddress() },
+            onRemoveAddress = { index -> viewModel.removeAddress(index) },
+            onAddCompany = { showNewCompanyDialog = true },
+            onSave = { viewModel.saveClient() }
+        )
+    }
+
+    if (showNewCompanyDialog) {
+        NewCompanyDialog(
+            onDismiss = { showNewCompanyDialog = false },
+            onConfirm = { name, logoUri -> viewModel.createCompany(name, logoUri) }
         )
     }
 }
@@ -201,17 +214,18 @@ private fun Content(
     onLaunchGallery: () -> Unit,
     onFieldChange: (Client.() -> Client) -> Unit,
     onAddressChange: (Int, String) -> Unit,
+    onAddAddress: () -> Unit,
+    onRemoveAddress: (Int) -> Unit,
+    onAddCompany: () -> Unit,
     onSave: () -> Unit
 
 ) {
     // Memorizar las lambdas evita recomposiciones innecesarias en cascada sobre ClientForm
     val onNameChangeStable = remember(onFieldChange) { { text: String -> onFieldChange { copy(name = text) } } }
     val onLastNameChangeStable = remember(onFieldChange) { { text: String -> onFieldChange { copy(lastname = text) } } }
-    val onCompanyChangeStable = remember(onFieldChange) { { text: String -> onFieldChange { copy(company = text) } } }
+    val onCompanyChangeStable = remember(onFieldChange) { { id: Long -> onFieldChange { copy(companyId = id) } } }
     val onEmailChangeStable = remember(onFieldChange) { { text: String -> onFieldChange { copy(email = text) } } }
     val onPhoneChangeStable = remember(onFieldChange) { { text: String -> onFieldChange { copy(phone = text) } } }
-    val onAddress1ChangeStable = remember(onAddressChange) { { text: String -> onAddressChange(0, text) } }
-    val onAddress2ChangeStable = remember(onAddressChange) { { text: String -> onAddressChange(1, text) } }
 
     when (val state = uiState) {
         is CreateClientUiState.Loading -> {
@@ -235,8 +249,10 @@ private fun Content(
                 onCompanyChange = onCompanyChangeStable,
                 onEmailChange = onEmailChangeStable,
                 onPhoneChange = onPhoneChangeStable,
-                onAddress1Change = onAddress1ChangeStable,
-                onAddress2Change = onAddress2ChangeStable,
+                onAddAddress = onAddAddress,
+                onRemoveAddress = onRemoveAddress,
+                onAddressChange = onAddressChange,
+                onAddCompany = onAddCompany,
                 onSave = onSave
             )
         }

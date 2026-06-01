@@ -67,7 +67,7 @@ class HomeViewModelTest {
         state as HomeUiState.Success
 
         assertEquals(1, state.clients.size)
-        assertEquals("Tony", state.clients[0].name)
+        assertEquals("Tony", state.clients[0].client.name)
     }
 
     @Test

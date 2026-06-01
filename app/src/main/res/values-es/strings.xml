@@ -25,6 +25,9 @@
     <string name="phone">Telefono</string>
     <string name="address1">Dirreccion 1</string>
     <string name="address2">Direccion 2</string>
+    <string name="address">Dirección</string>
+    <string name="addresses">Direcciones</string>
+    <string name="add_address">Añadir dirección</string>
     <string name="save">Guardar</string>
     <string name="client_not_found">Cliente no encontrado</string>
     <string name="error_loading_client">Error al cargar el cliente</string>

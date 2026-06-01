@@ -8,6 +8,8 @@ import com.example.clients.domain.model.DomainError
 import com.example.clients.domain.usecase.client.GetClientByIdUseCase
 import com.example.clients.domain.usecase.client.InsertClientWithAddressesUseCase
 import com.example.clients.domain.usecase.client.UpdateClientWithAddressesUseCase
+import com.example.clients.domain.usecase.company.GetCompaniesUseCase
+import com.example.clients.domain.usecase.company.InsertCompanyUseCase
 import com.example.clients.ui.create.states.CreateClientEvent
 import com.example.clients.ui.create.states.CreateClientFormState
 import com.example.clients.ui.create.states.CreateClientUiState
@@ -43,15 +45,24 @@ class CreateClientViewModelTest {
     private val getClientById: GetClientByIdUseCase =
         mockk()
 
+    private val getCompanies: GetCompaniesUseCase =
+        mockk()
+
+    private val insertCompany: InsertCompanyUseCase =
+        mockk()
+
     private lateinit var viewModel: CreateClientViewModel
 
     @Before
     fun setup() {
+        every { getCompanies() } returns flowOf(emptyList())
 
         viewModel = CreateClientViewModel(
             insertClient,
             updateClient,
-            getClientById
+            getClientById,
+            getCompanies,
+            insertCompany
         )
     }
 
@@ -118,7 +129,7 @@ class CreateClientViewModelTest {
                 name = "Tony",
                 lastname = "Test",
                 email = "test@mail.com",
-                company = "Orion",
+                companyId = 1L,
                 phone = "123",
                 photoUri = "content://image"
             )
@@ -153,7 +164,7 @@ class CreateClientViewModelTest {
             name = "Tony",
             lastname = "Old",
             email = "old@mail.com",
-            company = "Orion",
+            companyId = 1L,
             phone = "123",
             photoUri = "content://image"
         )
@@ -233,7 +244,7 @@ class CreateClientViewModelTest {
                 name = "Tony",
                 lastname = "Test",
                 email = "test@mail.com",
-                company = "Orion",
+                companyId = 1L,
                 phone = "123",
                 photoUri = ""
             )
@@ -271,7 +282,7 @@ class CreateClientViewModelTest {
                 name = "Tony",
                 lastname = "Test",
                 email = "mail@test.com",
-                company = "Orion",
+                companyId = 1L,
                 phone = "123",
                 photoUri = "content://image"
             )

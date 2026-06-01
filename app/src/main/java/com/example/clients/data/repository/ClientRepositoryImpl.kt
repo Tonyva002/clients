@@ -23,7 +23,8 @@ class ClientRepositoryImpl @Inject constructor(
             list.map { relation ->
                 ClientWithAddresses(
                     client = relation.client.toDomain(),
-                    addresses = relation.addresses.map { it.toDomain() }
+                    addresses = relation.addresses.map { it.toDomain() },
+                    company = relation.company?.toDomain()
                 )
             }
         }
@@ -35,7 +36,8 @@ class ClientRepositoryImpl @Inject constructor(
             relation?.let {
                 ClientWithAddresses(
                     client = it.client.toDomain(),
-                    addresses = it.addresses.map { addr -> addr.toDomain() }
+                    addresses = it.addresses.map { addr -> addr.toDomain() },
+                    company = it.company?.toDomain()
                 )
             }
         }
@@ -47,7 +49,8 @@ class ClientRepositoryImpl @Inject constructor(
             list.map { relation ->
                 ClientWithAddresses(
                     client = relation.client.toDomain(),
-                    addresses = relation.addresses.map { it.toDomain() }
+                    addresses = relation.addresses.map { it.toDomain() },
+                    company = relation.company?.toDomain()
                 )
             }
         }

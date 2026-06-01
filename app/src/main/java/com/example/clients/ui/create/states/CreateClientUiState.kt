@@ -2,16 +2,16 @@ package com.example.clients.ui.create.states
 
 import com.example.clients.domain.model.Address
 import com.example.clients.domain.model.Client
+import com.example.clients.domain.model.Company
 
 data class CreateClientFormState(
     val client: Client = Client(),
     val addresses: List<Address> = emptyList(),
+    val companies: List<Company> = emptyList(),
     val isEditMode: Boolean = false
-
 )
 
- data class ValidationErrors(
-
+data class ValidationErrors(
     val image: Int? = null,
     val name: Int? = null,
     val lastname: Int? = null,
@@ -19,21 +19,18 @@ data class CreateClientFormState(
     val email: Int? = null,
     val phone: Int? = null,
     val address1: Int? = null
-
-){
+) {
     fun hasErrors() =
-        listOf(image, name, lastname, email, phone, address1).any {it != null}
+        listOf(image, name, lastname, company, email, phone, address1).any { it != null }
 }
 
-
 sealed class CreateClientUiState {
-
     object Loading : CreateClientUiState()
 
     data class Form(
         val data: CreateClientFormState,
         val errors: ValidationErrors = ValidationErrors()
-    ): CreateClientUiState()
+    ) : CreateClientUiState()
 
-    data class Error(val message: Int): CreateClientUiState()
+    data class Error(val message: Int) : CreateClientUiState()
 }

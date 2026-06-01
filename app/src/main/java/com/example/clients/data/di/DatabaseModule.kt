@@ -3,6 +3,7 @@ package com.example.clients.data.di
 import android.content.Context
 import androidx.room.Room
 import com.example.clients.data.local.dao.ClientDao
+import com.example.clients.data.local.dao.CompanyDao
 import com.example.clients.data.local.database.ClientDatabase
 import dagger.Module
 import dagger.Provides
@@ -30,4 +31,7 @@ object DatabaseModule {
 
     @Provides
     fun provideClientDao(db: ClientDatabase): ClientDao = db.clientDao()
+
+    @Provides
+    fun provideCompanyDao(db: ClientDatabase): CompanyDao = db.companyDao()
 }

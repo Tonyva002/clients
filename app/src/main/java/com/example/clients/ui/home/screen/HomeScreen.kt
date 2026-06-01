@@ -27,7 +27,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.clients.R
-import com.example.clients.domain.model.Client
+import com.example.clients.domain.model.ClientWithAddresses
 import com.example.clients.ui.core.CustomOptionsDialog
 import com.example.clients.ui.core.DialogOption
 import com.example.clients.ui.home.components.ClientList
@@ -47,9 +47,8 @@ fun HomeScreen(
 
     val context = LocalContext.current
 
-    var selectedClient by remember {
-        mutableStateOf<Client?>(null)
-
+    var selectedClientRelation by remember {
+        mutableStateOf<ClientWithAddresses?>(null)
     }
 
     // Eventos
@@ -100,13 +99,12 @@ fun HomeScreen(
                     ClientList(
                         clients = state.clients,
 
-                        onClick = { client ->
-                            navController.navigate("create/${client.id}")
+                        onClick = { relation ->
+                            navController.navigate("create/${relation.client.id}")
                         },
 
-                        onLongClick = { client ->
-                            selectedClient = client
-
+                        onLongClick = { relation ->
+                            selectedClientRelation = relation
                         }
                     )
                 }
@@ -122,33 +120,30 @@ fun HomeScreen(
     }
 
     // Dialog
-    selectedClient?.let { client ->
+    selectedClientRelation?.let { relation ->
+        val client = relation.client
         CustomOptionsDialog(
             title = stringResource(R.string.options),
             message = stringResource(R.string.message_select_an_option),
             options = listOf(
                 DialogOption(
-                    text =  stringResource(R.string.delete),
+                    text = stringResource(R.string.delete),
                     onClick = {
-                        selectedClient = null
-                        viewModel.delete(client) },
+                        selectedClientRelation = null
+                        viewModel.delete(client)
+                    },
                 ),
                 DialogOption(
                     text = stringResource(R.string.call),
                     onClick = {
-                        selectedClient = null
-                        dial(context = context, phone = client.phone) },
+                        selectedClientRelation = null
+                        dial(context = context, phone = client.phone)
+                    },
                 )
             ),
             onDismiss = {
-                selectedClient = null
+                selectedClientRelation = null
             },
-
-            )
+        )
     }
 }
-
-
-
-
-

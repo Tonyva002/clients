@@ -65,13 +65,14 @@ interface ClientDao {
     @Query("SELECT * FROM clients WHERE id = :clientId")
     fun getClientWithAddressesById(clientId: Int): Flow<ClientWithAddresses?>
 
-    // Buscar por nombre, apellido o compañia
+    // Buscar por nombre, apellido o compañía
     @Transaction
     @Query(
-        """SELECT * FROM clients
-            WHERE LOWER(name) LIKE '%' || LOWER(:query) || '%'
-            OR LOWER(lastname) LIKE'%' || LOWER(:query) || '%'
-            OR LOWER(company) LIKE '%' || LOWER(:query) || '%'
+        """SELECT clients.* FROM clients
+            LEFT JOIN companies ON clients.companyId = companies.id
+            WHERE LOWER(clients.name) LIKE '%' || LOWER(:query) || '%'
+            OR LOWER(clients.lastname) LIKE '%' || LOWER(:query) || '%'
+            OR LOWER(companies.name) LIKE '%' || LOWER(:query) || '%'
         """
     )
     fun searchClients(query: String): Flow<List<ClientWithAddresses>>
@@ -119,5 +120,3 @@ interface ClientDao {
 
 
 }
-
-

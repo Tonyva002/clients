@@ -53,9 +53,7 @@ class HomeViewModel @Inject constructor(
 
                 getClients().collect { clients ->
 
-                    _uiState.value = HomeUiState.Success(
-                        clients.map { it.client }
-                    )
+                    _uiState.value = HomeUiState.Success(clients)
                 }
 
             } catch (e: DomainError) {
