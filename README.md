@@ -56,7 +56,7 @@ Install Android Studio
 ![Screen 5](https://github.com/user-attachments/assets/5cb5138c-dcc9-44e6-b654-1c46586575e6)
 
 ### 6) Clientes
-![Screen 6](https://github.com/user-attachments/assets/50e9f51c-3854-4fcd-9834-b43f7d1fcac6)
+![Screen 6](https://github.com/user-attachments/assets/1e88a166-c067-4739-825e-54db77fe3e85)
 
 
 
