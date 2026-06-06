@@ -55,7 +55,7 @@ Install Android Studio
 ### 5) Pantalla de actualizar cliente (camara - galleria)
 ![Screen 5](https://github.com/user-attachments/assets/a317d95d-6365-40e6-b475-47030643c472)
 
-### 6) Pantalla de clientes (click prolongado permite eliminar y llamar al cliente).
+### 6) Pantalla de clientes (click prolongado permite eliminar o llamar al cliente).
 ![Screen 6](https://github.com/user-attachments/assets/5ffd7485-8486-490b-96c0-2bb941df515d)
 
 ### 7) Pantalla de clientes
