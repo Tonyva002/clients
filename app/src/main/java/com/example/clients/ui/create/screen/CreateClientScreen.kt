@@ -41,6 +41,7 @@ import com.example.clients.ui.create.components.NewCompanyDialog
 import com.example.clients.ui.create.states.CreateClientEvent
 import com.example.clients.ui.create.states.CreateClientUiState
 import com.example.clients.ui.create.viewmodel.CreateClientViewModel
+import com.example.clients.ui.core.saveImageToInternalStorage
 import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,7 +69,8 @@ fun CreateClientScreen(
         contract = ActivityResultContracts.TakePicture()
     ) { success ->
         if (success && currentCameraUri != null) {
-            viewModel.updatePhoto(currentCameraUri.toString())
+            val savedPath = saveImageToInternalStorage(context, currentCameraUri!!)
+            savedPath?.let { viewModel.updatePhoto(it) }
         }
     }
 
@@ -77,16 +79,8 @@ fun CreateClientScreen(
         contract = ActivityResultContracts.OpenDocument()
     ) { uri: Uri? ->
         uri?.let {
-            try {
-                context.contentResolver.takePersistableUriPermission(
-                    it,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION
-                )
-                viewModel.updatePhoto(it.toString())
-            }catch (e: SecurityException) {
-
-            }
-
+            val savedPath = saveImageToInternalStorage(context, it)
+            savedPath?.let { path -> viewModel.updatePhoto(path) }
         }
     }
 

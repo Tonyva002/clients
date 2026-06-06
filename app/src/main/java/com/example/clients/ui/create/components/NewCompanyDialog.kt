@@ -29,21 +29,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
 import coil.compose.rememberAsyncImagePainter
 import com.example.clients.R
+import com.example.clients.ui.core.saveImageToInternalStorage
 
 @Composable
 fun NewCompanyDialog(
     onDismiss: () -> Unit,
     onConfirm: (String, String) -> Unit
 ) {
+    val context = LocalContext.current
     var name by remember { mutableStateOf("") }
-    var logoUri by remember { mutableStateOf<Uri?>(null) }
+    var logoPath by remember { mutableStateOf<String?>(null) }
 
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
-        logoUri = uri
+        uri?.let {
+            val path = saveImageToInternalStorage(context, it)
+            logoPath = path
+        }
     }
 
     AlertDialog(
@@ -58,7 +64,7 @@ fun NewCompanyDialog(
                 // Logo Selection
                 Image(
                     painter = rememberAsyncImagePainter(
-                        logoUri ?: R.drawable.photo_01 // Placeholder
+                        logoPath ?: R.drawable.photo_01 // Placeholder
                     ),
                     contentDescription = "Logo de la empresa",
                     modifier = Modifier
@@ -87,7 +93,7 @@ fun NewCompanyDialog(
             Button(
                 onClick = {
                     if (name.isNotBlank()) {
-                        onConfirm(name, logoUri?.toString().orEmpty())
+                        onConfirm(name, logoPath.orEmpty())
                         onDismiss()
                     }
                 }

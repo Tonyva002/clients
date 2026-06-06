@@ -13,7 +13,7 @@ kotlin = "2.3.21"
 composeBom = "2026.05.01"
 ksp = "2.3.4"
 hilt = "2.59.2"
-mockkVersion = "1.14.9"
+mockkVersion = "1.14.11"
 room = "2.8.4"
 navigationCompose = "2.9.8"
 
