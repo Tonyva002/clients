@@ -46,11 +46,11 @@ Install Android Studio
 ### 2) Pantalla de agregar cliente
 ![Screen 2](https://github.com/user-attachments/assets/08749e87-6649-4707-9530-6ff0c065ab04)
 
-### 3) Pantalla de actualizar cliente (camara - galleria)
-![Screen 3](https://github.com/user-attachments/assets/a317d95d-6365-40e6-b475-47030643c472)
+### 3) Añadir direcciones
+![Screen 3](https://github.com/user-attachments/assets/1bfd11cb-0d36-4283-817a-6184097abd6c)
 
-### 4) Añadir direcciones
-![Screen 4](https://github.com/user-attachments/assets/1bfd11cb-0d36-4283-817a-6184097abd6c)
+### 4) Pantalla de actualizar cliente (camara - galleria)
+![Screen 4](https://github.com/user-attachments/assets/a317d95d-6365-40e6-b475-47030643c472)
 
 ### 5) Click prolongado permite eliminar y llamar al cliente
 ![Screen 5](https://github.com/user-attachments/assets/5ffd7485-8486-490b-96c0-2bb941df515d)
