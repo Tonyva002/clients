@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.clients"
+    namespace = "com.pangea.clients"
     compileSdk = 36
 
 
     defaultConfig {
-        applicationId = "com.example.clients"
+        applicationId = "com.pangea.clients"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
