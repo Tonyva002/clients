@@ -36,6 +36,7 @@
     <string name="update_client">Actualizar cliente</string>
     <string name="create_client">Crear cliente</string>
     <string name="client_image">Imagen del cliente</string>
+    <string name="company_image">Imagen de la compañía</string>
 
 
 </resources>
